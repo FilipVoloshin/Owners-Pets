@@ -104,11 +104,24 @@ namespace Owners_Pets.Helpers
         /// <summary>
         /// Shows all pets name of a certain owner 
         /// </summary>
-        public static void ViewOwnerDetails(int ownerId)
+        public static List<string> ViewOwnerDetails(int ownerId)
         {
-            string sql = $"select name from pets where ownerid = {ownerId}";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
+            var resultList = new List<string>();
+            using (var dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;"))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = $"select name from pets where ownerid = {ownerId}";
+                    fmd.CommandType = CommandType.Text;
+                    SQLiteDataReader reader = fmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        resultList.Add(Convert.ToString(reader["name"]));
+                    }
+                }
+                return resultList;
+            }
         }
 
         /// <summary>
@@ -122,7 +135,6 @@ namespace Owners_Pets.Helpers
             _command = new SQLiteCommand(sql, _dbConnection);
             _command.ExecuteNonQuery();
         }
-
 
 
         /// <summary>

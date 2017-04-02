@@ -12,7 +12,7 @@ namespace Owners_Pets.Controllers
     
     public class OwnershipsController : ApiController
     {
-        [HttpGet]
+
         public List<Information> Get()
         {
             var listOfInformation = DBHelper.ViewFullDetails();
