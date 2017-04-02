@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Data.SQLite;
+using Owners_Pets.Models;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
-using System.Web;
+using System.Data;
+using System;
 
 namespace Owners_Pets.Helpers
 {
@@ -24,11 +24,28 @@ namespace Owners_Pets.Helpers
         /// <summary>
         /// Shows owners name and their pets count
         /// </summary>
-        public static void ViewFullDetails()
+        public static List<Information> ViewFullDetails()
         {
-            string sql = "Select owners.name, Count(pets.name) as Pets_Count from owners  inner join pets on pets.ownerid = owners.id group by owners.name";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
+            var listOfFullDetails = new List<Information>();
+            using (var dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;"))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = @"Select owners.name as Name, Count(pets.name) as Pets_Count from owners inner join pets on pets.ownerid = owners.id group by owners.name";
+                    fmd.CommandType = CommandType.Text;
+                    SQLiteDataReader reader = fmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        listOfFullDetails.Add(new Information()
+                        {
+                            Name=Convert.ToString(reader["Name"]),
+                            PetsCount = Convert.ToString(reader["Pets_Count"])
+                        });
+                    }
+                }
+                return listOfFullDetails;
+            }
         }
 
         /// <summary>

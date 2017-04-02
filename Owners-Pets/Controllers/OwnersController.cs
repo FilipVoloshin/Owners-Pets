@@ -12,11 +12,11 @@ namespace Owners_Pets.Controllers
     
     public class OwnershipsController : ApiController
     {
-        public IEnumerable<string> Get()
+        public List<Information> GetOwners()
         {
-            DBHelper.StartConnection();
-            DBHelper.DeleteOwner(5);
-            return new string[] { "value1", "value2" };
+            var listOfInformation = DBHelper.ViewFullDetails();
+            return listOfInformation;
+
         }
     }
 }
