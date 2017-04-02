@@ -15,7 +15,7 @@ namespace Owners_Pets.Controllers
         public IEnumerable<string> Get()
         {
             DBHelper.StartConnection();
-            DBHelper.DeleteOwner(3);
+            DBHelper.DeleteOwner(5);
             return new string[] { "value1", "value2" };
         }
     }

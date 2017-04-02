@@ -18,8 +18,29 @@ namespace Owners_Pets.Helpers
         {
             _dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;");
             _dbConnection.Open();
-            
+
         }
+
+        /// <summary>
+        /// Shows owners name and their pets count
+        /// </summary>
+        public static void ViewFullDetails()
+        {
+            string sql = "Select owners.name, Count(pets.name) as Pets_Count from owners  inner join pets on pets.ownerid = owners.id group by owners.name";
+            _command = new SQLiteCommand(sql, _dbConnection);
+            _command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Shows all pets name of a certain owner 
+        /// </summary>
+        public static void ViewOwnerDetails(int ownerId)
+        {
+            string sql = $"select name from pets where ownerid = {ownerId}";
+            _command = new SQLiteCommand(sql, _dbConnection);
+            _command.ExecuteNonQuery();
+        }
+
         /// <summary>
         /// Allows to add owner to the Owners table
         /// </summary>
@@ -28,19 +49,21 @@ namespace Owners_Pets.Helpers
         {
             string sql = $"insert into Owners ('Name') values ('{name}')";
             _command = new SQLiteCommand(sql, _dbConnection);
-             _command.ExecuteNonQuery();
+            _command.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Allows to add pet to the pets table
         /// </summary>
         /// <param name="name"></param>
         /// <param name="ownerId"></param>
-        public static void AddPet(string name,int ownerId)
+        public static void AddPet(string name, int ownerId)
         {
             string sql = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
             _command = new SQLiteCommand(sql, _dbConnection);
             _command.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Delete owner by ID
         /// </summary>
@@ -51,6 +74,7 @@ namespace Owners_Pets.Helpers
             _command = new SQLiteCommand(sql, _dbConnection);
             _command.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Delete pet by ID
         /// </summary>
@@ -62,8 +86,7 @@ namespace Owners_Pets.Helpers
             _command.ExecuteNonQuery();
         }
 
-        //TODO add constraint to the foreign key.
+
     }
 
-    //
 }
