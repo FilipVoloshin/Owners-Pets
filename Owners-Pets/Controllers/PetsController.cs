@@ -12,14 +12,18 @@ namespace Owners_Pets.Controllers
             return result;
         }
 
-        public void CreatePet(string name,int ownerId)
+        public IHttpActionResult CreatePet(string name,int ownerId)
         {
+            DBHelper.StartConnection();
             DBHelper.AddPet(name, ownerId);
+            return Ok();
         }
 
-        public void DeletePet(int id)
+        public IHttpActionResult DeletePet(int id)
         {
+            DBHelper.StartConnection();
             DBHelper.DeletePet(id);
+            return Ok();
         }
     }
 }

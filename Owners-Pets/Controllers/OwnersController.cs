@@ -25,16 +25,18 @@ namespace Owners_Pets.Controllers
         //    return count;
         //}
 
-        [HttpPost]
-        public void CreateOwner(string name)
+        public IHttpActionResult CreateOwner(string name)
         {
+            DBHelper.StartConnection();
             DBHelper.AddOwner(name);
+            return Ok();
         }
 
-        [HttpDelete]
-        public void DeleteOwner(int id)
+        public IHttpActionResult DeleteOwner(int id)
         {
+            DBHelper.StartConnection();
             DBHelper.DeleteOwner(id);
+            return Ok();
         }
     }
 }
