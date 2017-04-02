@@ -13,11 +13,17 @@ namespace Owners_Pets.Controllers
     public class OwnershipsController : ApiController
     {
         [HttpGet]
-        public List<Information> GetOwners()
+        public List<Information> Get()
         {
             var listOfInformation = DBHelper.ViewFullDetails();
             return listOfInformation;
         }
+
+        //public string GetCount()
+        //{
+        //    var count = DBHelper.GetOwnersCount();
+        //    return count;
+        //}
 
         [HttpPost]
         public void CreateOwner(string name)

@@ -21,6 +21,8 @@ namespace Owners_Pets.Helpers
 
         }
 
+        #region OwnersController
+
         /// <summary>
         /// Shows owners name and their pets count
         /// </summary>
@@ -39,7 +41,7 @@ namespace Owners_Pets.Helpers
                     {
                         listOfFullDetails.Add(new Information()
                         {
-                            Name=Convert.ToString(reader["Name"]),
+                            Name = Convert.ToString(reader["Name"]),
                             PetsCount = Convert.ToString(reader["Pets_Count"])
                         });
                     }
@@ -49,13 +51,27 @@ namespace Owners_Pets.Helpers
         }
 
         /// <summary>
-        /// Shows all pets name of a certain owner 
+        /// returns total count of owners in db
         /// </summary>
-        public static void ViewOwnerDetails(int ownerId)
+        /// <returns></returns>
+        public static string GetOwnersCount()
         {
-            string sql = $"select name from pets where ownerid = {ownerId}";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
+            string stringResult = null;
+            using (var dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;"))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = @"Select count(name) as OwnersCount from Owners";
+                    fmd.CommandType = CommandType.Text;
+                    SQLiteDataReader reader = fmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        stringResult = Convert.ToString(reader["OwnersCount"]);
+                    }
+                }
+            }
+            return stringResult;
         }
 
         /// <summary>
@@ -65,6 +81,32 @@ namespace Owners_Pets.Helpers
         public static void AddOwner(string name)
         {
             string sql = $"insert into Owners ('Name') values ('{name}')";
+            _command = new SQLiteCommand(sql, _dbConnection);
+            _command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Delete owner by ID
+        /// </summary>
+        /// <param name="id"></param>
+        public static void DeleteOwner(int id)
+        {
+            string sql = $"delete from Owners where ID = {id}";
+            _command = new SQLiteCommand(sql, _dbConnection);
+            _command.ExecuteNonQuery();
+        }
+
+
+        #endregion
+
+        #region PetsController
+
+        /// <summary>
+        /// Shows all pets name of a certain owner 
+        /// </summary>
+        public static void ViewOwnerDetails(int ownerId)
+        {
+            string sql = $"select name from pets where ownerid = {ownerId}";
             _command = new SQLiteCommand(sql, _dbConnection);
             _command.ExecuteNonQuery();
         }
@@ -81,16 +123,7 @@ namespace Owners_Pets.Helpers
             _command.ExecuteNonQuery();
         }
 
-        /// <summary>
-        /// Delete owner by ID
-        /// </summary>
-        /// <param name="id"></param>
-        public static void DeleteOwner(int id)
-        {
-            string sql = $"delete from Owners where ID = {id}";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
-        }
+
 
         /// <summary>
         /// Delete pet by ID
@@ -102,6 +135,12 @@ namespace Owners_Pets.Helpers
             _command = new SQLiteCommand(sql, _dbConnection);
             _command.ExecuteNonQuery();
         }
+        #endregion
+        
+
+        
+
+       
 
 
     }
