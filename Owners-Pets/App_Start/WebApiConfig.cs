@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Owners_Pets.Helpers;
 
 namespace Owners_Pets
 {
+
+
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            //Convert to JSON format
+            config.Formatters.Add(new BrowserJsonFormatter());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

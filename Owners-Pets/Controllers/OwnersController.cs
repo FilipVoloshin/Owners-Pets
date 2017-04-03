@@ -9,14 +9,43 @@ using Owners_Pets.Helpers;
 
 namespace Owners_Pets.Controllers
 {
-    
+
     public class OwnershipsController : ApiController
     {
-        public IEnumerable<string> Get()
+
+        public List<Information> Get()
         {
-            DBHelper.StartConnection();
-            DBHelper.DeleteOwner(5);
-            return new string[] { "value1", "value2" };
+            var listOfInformation = DBHelper.ViewFullDetails();
+            return listOfInformation;
+        }
+
+        //public string GetCount()
+        //{
+        //    var count = DBHelper.GetOwnersCount();
+        //    return count;
+        //}
+
+        [HttpPost]
+        public IHttpActionResult CreateOwner(string name)
+        {
+            if (name == null)
+            {
+                return BadRequest("Invalid passed data");
+            }
+            DBHelper.AddOwner(name);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteOwner(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest("Invalid passed data");
+            }
+            DBHelper.DeleteOwner(id);
+
+            return Ok();
         }
     }
 }
