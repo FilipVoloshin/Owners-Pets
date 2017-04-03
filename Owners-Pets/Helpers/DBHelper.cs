@@ -114,7 +114,7 @@ namespace Owners_Pets.Helpers
         public static List<string> ViewOwnerDetails(int ownerId)
         {
             var resultList = new List<string>();
-            using (var dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;"))
+            using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
