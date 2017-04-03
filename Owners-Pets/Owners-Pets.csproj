@@ -108,6 +108,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DBHelper.cs" />
+    <Compile Include="Helpers\BrowserJsonFormatter.cs" />
     <Compile Include="Models\Information.cs" />
     <Compile Include="Models\Owner.cs" />
     <Compile Include="Models\Pet.cs" />
