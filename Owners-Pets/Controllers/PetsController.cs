@@ -8,6 +8,7 @@ namespace Owners_Pets.Controllers
     {
         public List<string> GetPetsById(int id)
         {
+            
             var result = DBHelper.ViewOwnerDetails(id);
             return result;
         }
@@ -19,7 +20,6 @@ namespace Owners_Pets.Controllers
             {
                 return BadRequest("Invalid passed data");
             }
-            DBHelper.StartConnection();
             DBHelper.AddPet(name, ownerId);
             return Ok();
         }
@@ -31,7 +31,6 @@ namespace Owners_Pets.Controllers
             {
                 return BadRequest("Invalid passed data");
             }
-            DBHelper.StartConnection();
             DBHelper.DeletePet(id);
             return Ok();
         }

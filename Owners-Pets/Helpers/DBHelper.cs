@@ -8,18 +8,11 @@ namespace Owners_Pets.Helpers
 {
     public static class DBHelper
     {
-        private static SQLiteConnection _dbConnection;
-        private static SQLiteCommand _command;
-
+        private static string _connectionString = @"Data Source = C:\git_root\Owners-Pets\Owners-Pets\OwnersPets.db;Version=3;";
         /// <summary>
         /// Starts the connection whith DataBase
         /// </summary>
-        public static void StartConnection()
-        {
-            _dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;");
-            _dbConnection.Open();
-
-        }
+        
 
         #region OwnersController
 
@@ -29,7 +22,7 @@ namespace Owners_Pets.Helpers
         public static List<Information> ViewFullDetails()
         {
             var listOfFullDetails = new List<Information>();
-            using (var dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;"))
+            using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
@@ -57,7 +50,7 @@ namespace Owners_Pets.Helpers
         public static string GetOwnersCount()
         {
             string stringResult = null;
-            using (var dbConnection = new SQLiteConnection(@"Data Source=C:\git_root\Owners-Pets\Owners-Pets\Ownerships.db;Version=3;"))
+            using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
@@ -80,9 +73,16 @@ namespace Owners_Pets.Helpers
         /// <param name="name"></param>
         public static void AddOwner(string name)
         {
-            string sql = $"insert into Owners ('Name') values ('{name}')";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
+            using (var dbConnection = new SQLiteConnection(_connectionString))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = $"insert into Owners ('Name') values ('{name}')";
+                    fmd.CommandType = CommandType.Text;
+                }
+                    
+            }    
         }
 
         /// <summary>
@@ -90,10 +90,17 @@ namespace Owners_Pets.Helpers
         /// </summary>
         /// <param name="id"></param>
         public static void DeleteOwner(int id)
-        {
-            string sql = $"delete from Owners where ID = {id}";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
+        { 
+            using (var dbConnection = new SQLiteConnection(_connectionString))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = $"delete from Owners where ID = {id}";
+                    fmd.CommandType = CommandType.Text;
+                }
+
+            }
         }
 
 
@@ -131,11 +138,17 @@ namespace Owners_Pets.Helpers
         /// <param name="ownerId"></param>
         public static void AddPet(string name, int ownerId)
         {
-            string sql = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
-        }
+            using (var dbConnection = new SQLiteConnection(_connectionString))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
+                    fmd.CommandType = CommandType.Text;
+                }
 
+            }
+        }
 
         /// <summary>
         /// Delete pet by ID
@@ -143,9 +156,16 @@ namespace Owners_Pets.Helpers
         /// <param name="id"></param>
         public static void DeletePet(int id)
         {
-            string sql = $"delete from Pets where ID = {id}";
-            _command = new SQLiteCommand(sql, _dbConnection);
-            _command.ExecuteNonQuery();
+            using (var dbConnection = new SQLiteConnection(_connectionString))
+            {
+                dbConnection.Open();
+                using (SQLiteCommand fmd = dbConnection.CreateCommand())
+                {
+                    fmd.CommandText = $"delete from Pets where ID = {id}";
+                    fmd.CommandType = CommandType.Text;
+                }
+
+            }
         }
         #endregion
         
