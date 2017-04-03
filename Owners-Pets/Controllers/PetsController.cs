@@ -12,15 +12,25 @@ namespace Owners_Pets.Controllers
             return result;
         }
 
+        [HttpPost]
         public IHttpActionResult CreatePet(string name,int ownerId)
         {
+            if (name == null || ownerId == 0)
+            {
+                return BadRequest("Invalid passed data");
+            }
             DBHelper.StartConnection();
             DBHelper.AddPet(name, ownerId);
             return Ok();
         }
 
+        [HttpDelete]
         public IHttpActionResult DeletePet(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest("Invalid passed data");
+            }
             DBHelper.StartConnection();
             DBHelper.DeletePet(id);
             return Ok();

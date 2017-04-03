@@ -9,7 +9,7 @@ using Owners_Pets.Helpers;
 
 namespace Owners_Pets.Controllers
 {
-    
+
     public class OwnershipsController : ApiController
     {
 
@@ -25,17 +25,28 @@ namespace Owners_Pets.Controllers
         //    return count;
         //}
 
+        [HttpPost]
         public IHttpActionResult CreateOwner(string name)
         {
+            if (name == null)
+            {
+                return BadRequest("Invalid passed data");
+            }
             DBHelper.StartConnection();
             DBHelper.AddOwner(name);
             return Ok();
         }
 
+        [HttpDelete]
         public IHttpActionResult DeleteOwner(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest("Invalid passed data");
+            }
             DBHelper.StartConnection();
             DBHelper.DeleteOwner(id);
+
             return Ok();
         }
     }
