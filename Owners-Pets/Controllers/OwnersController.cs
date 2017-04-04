@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using Owners_Pets.Models;
 using Owners_Pets.Helpers;
+using System.Web.Http.Cors;
 
 namespace Owners_Pets.Controllers
 {
-
+    [EnableCors("http://localhost:60958", "*","*")]
     public class OwnershipsController : ApiController
     {
-
-        public List<Information> Get()
+        [HttpGet]
+        public IEnumerable<Information> Get()
         {
             var listOfInformation = DBHelper.ViewFullDetails();
             return listOfInformation;
