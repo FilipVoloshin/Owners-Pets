@@ -15,6 +15,7 @@ namespace Owners_Pets.Controllers
     {
         public IEnumerable<Information> Get()
         {
+            DeleteOwner(8);
             var listOfInformation = DBHelper.ViewFullDetails();
             return listOfInformation;
         }
