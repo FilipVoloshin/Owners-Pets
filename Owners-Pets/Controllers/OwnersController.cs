@@ -19,12 +19,6 @@ namespace Owners_Pets.Controllers
             return listOfInformation;
         }
 
-        //public string GetCount()
-        //{
-        //    var count = DBHelper.GetOwnersCount();
-        //    return count;
-        //}
-
         [HttpPost]
         public IHttpActionResult CreateOwner(string name)
         {

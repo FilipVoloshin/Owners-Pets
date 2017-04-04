@@ -27,15 +27,16 @@ namespace Owners_Pets.Helpers
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = @"Select owners.name as Name, Count(pets.name) as Pets_Count from owners inner join pets on pets.ownerid = owners.id group by owners.name";
+                    fmd.CommandText = @"Select owners.ID as ID, owners.name as Name, Count(pets.name) as Pets_Count from owners inner join pets on pets.ownerid = owners.id group by owners.name";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
                         listOfFullDetails.Add(new Information()
                         {
+                            ID = Convert.ToInt32(reader["ID"]),
                             Name = Convert.ToString(reader["Name"]),
-                            PetsCount = Convert.ToString(reader["Pets_Count"])
+                            PetsCount = Convert.ToInt32(reader["Pets_Count"])
                         });
                     }
                 }
