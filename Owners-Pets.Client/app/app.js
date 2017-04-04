@@ -2,6 +2,6 @@
     "use strict";
 
     var app = angular.module("ownerManagment",
-                            []);
+        ["common.services"]);
 
 }());
