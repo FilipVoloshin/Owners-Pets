@@ -4,17 +4,18 @@ using System.Web.Http;
 using Owners_Pets.Models;
 using Owners_Pets.Helpers;
 using System.Web.Http.Cors;
+using System.Web.Http.OData;
 
 namespace Owners_Pets.Controllers
 {
     [EnableCors("http://localhost:60958", "*","*")]
     public class OwnershipsController : ApiController
     {
-        [HttpGet]
-        public IEnumerable<Information> Get()
+        [EnableQuery()]
+        public IQueryable<Information> Get()
         {
             var listOfInformation = DBHelper.ViewFullDetails();
-            return listOfInformation;
+            return listOfInformation.AsQueryable();
         }
 
         [HttpPost]
