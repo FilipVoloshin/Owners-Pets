@@ -23,6 +23,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Owners-Pets.Client", "Owner
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "60958"
+		SlnRelativePath = "Owners-Pets.Client\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

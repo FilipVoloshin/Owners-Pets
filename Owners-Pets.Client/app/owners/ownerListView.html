@@ -1,0 +1,19 @@
+<div class="panel panel-primary"
+     ng-controller="OwnerListCtrl as vm">
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td><b>Product</b></td>
+                    <td><b>PetsCount</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="owner in vm.owners">
+                    <td>{{ owner.Name}}</td>
+                    <td>{{ owner.PetsCount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
