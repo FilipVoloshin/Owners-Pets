@@ -5,23 +5,26 @@ using Owners_Pets.Models;
 using Owners_Pets.Helpers;
 using System.Web.Http.Cors;
 using System.Web.Http.OData;
+using System.Net.Http;
+using System.Net;
 
 namespace Owners_Pets.Controllers
 {
     [EnableCors("http://localhost:60958", "*", "*")]
     public class OwnershipsController : ApiController
     {
-        [EnableQuery()]
-        public IQueryable<Information> Get()
+        public IEnumerable<Information> Get()
         {
             var listOfInformation = DBHelper.ViewFullDetails();
-            return listOfInformation.AsQueryable();
+            return listOfInformation;
         }
 
         [HttpPost]
-        public void CreateOwner([FromBody] string name)
+        public IHttpActionResult CreateOwner([FromBody]Owner owner)
         {
+            var name = owner.OwnerName;
             DBHelper.AddOwner(name);
+            return Ok(true);
         }
 
         [HttpDelete]

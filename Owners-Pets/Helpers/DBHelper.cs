@@ -80,7 +80,7 @@ namespace Owners_Pets.Helpers
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"insert into Owners ('Name') values ('{name}')";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.ExecuteNonQuery();
                 }
                     
             }    
@@ -98,9 +98,8 @@ namespace Owners_Pets.Helpers
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"delete from Owners where ID = {id}";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.ExecuteNonQuery();
                 }
-
             }
         }
 
@@ -145,9 +144,8 @@ namespace Owners_Pets.Helpers
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.ExecuteNonQuery();
                 }
-
             }
         }
 
@@ -163,9 +161,8 @@ namespace Owners_Pets.Helpers
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"delete from Pets where ID = {id}";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.ExecuteNonQuery();
                 }
-
             }
         }
         #endregion
