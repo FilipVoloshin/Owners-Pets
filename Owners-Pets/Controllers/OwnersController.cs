@@ -8,7 +8,7 @@ using System.Web.Http.OData;
 
 namespace Owners_Pets.Controllers
 {
-    [EnableCors("http://localhost:60958", "*","*")]
+    [EnableCors("http://localhost:60958", "*", "*")]
     public class OwnershipsController : ApiController
     {
         [EnableQuery()]
@@ -19,14 +19,9 @@ namespace Owners_Pets.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult CreateOwner(string name)
+        public void CreateOwner([FromBody] string name)
         {
-            if (name == null)
-            {
-                return BadRequest("Invalid passed data");
-            }
             DBHelper.AddOwner(name);
-            return Ok();
         }
 
         [HttpDelete]
