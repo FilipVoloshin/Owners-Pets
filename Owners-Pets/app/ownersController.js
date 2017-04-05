@@ -41,7 +41,7 @@
             $http.post("/api/ownerships", vm.newOwner)
                 .then(function (response) {
                     //Success
-                    vm.owners.push({ Name: vm.newOwner.name, PetsCount: 0, ID: });
+                    vm.owners.push({ Name: vm.newOwner.name, PetsCount: 0, ID: 4});
                     vm.newOwner = {};
                 }, function () {
                     //Failure
