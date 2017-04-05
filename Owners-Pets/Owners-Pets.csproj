@@ -114,6 +114,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app-owners.js" />
+    <Content Include="app\ownersController.js" />
+    <Content Include="app\ownersView.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -121,6 +124,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />

@@ -10,12 +10,10 @@ using System.Net;
 
 namespace Owners_Pets.Controllers
 {
-    [EnableCors("http://localhost:60958", "*", "*")]
     public class OwnershipsController : ApiController
     {
-        public IEnumerable<Information> Get()
+        public IEnumerable<Owner> Get()
         {
-            DeleteOwner(8);
             var listOfInformation = DBHelper.ViewFullDetails();
             return listOfInformation;
         }
