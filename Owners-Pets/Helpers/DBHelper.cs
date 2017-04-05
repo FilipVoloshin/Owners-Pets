@@ -27,7 +27,7 @@ namespace Owners_Pets.Helpers
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = @"Select owners.ID as ID, owners.name as Name, Count(*) as PetsCount from owners left join pets on pets.ownerid = owners.id group by owners.id";
+                    fmd.CommandText = @"select o.id as ID, o.name as Name, IFNULL(p.CNT,0) PetCount from owners o left join (SELECT ownerid, COUNT(*) CNT FROM pets GROUP BY ownerid ) p on o.id = p.ownerid";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
@@ -36,7 +36,7 @@ namespace Owners_Pets.Helpers
                         {
                             ID = Convert.ToInt32(reader["ID"]),
                             Name = Convert.ToString(reader["Name"]),
-                            PetsCount = Convert.ToInt32(reader["PetsCount"])
+                            PetsCount = Convert.ToInt32(reader["PetCount"])
                         });
                     }
                 }
@@ -98,6 +98,8 @@ namespace Owners_Pets.Helpers
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"delete from Owners where ID = {id}";
+                    fmd.ExecuteNonQuery();
+                    fmd.CommandText = $"delete from Pets where ownerid = {id}";
                     fmd.ExecuteNonQuery();
                 }
             }
