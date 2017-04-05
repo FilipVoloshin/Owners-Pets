@@ -36,22 +36,31 @@
 
         //Add owner to database
         vm.addOwner = function () {
-
             vm.isBusy = true;
             vm.errorMessage = "";
-            $http.post("api/ownerships", vm.newOwner)
+            $http.post("/api/ownerships", vm.newOwner)
                 .then(function (response) {
-                    //success
+                    //Success
                     vm.owners.push(response.data);
                     vm.newOwner = {};
-                }, function (error) {
-                    //failure
-                    vm.errorMessage = "Failed to add new owner: " + error;
+                }, function () {
+                    //Failure
+                    vm.errorMessage = "Failed to add owner:";
                 })
                 .finally(function () {
                     vm.isBusy = false;
                 });
         };
+
+
+        //Delete owner 
+        vm.deleteOwner = function (id) {
+            $http.delete("/api/ownerships/" + id)
+                .then(function (response) {
+                    vm.owners.pop(response.data);
+                })
+        };
+        
     };
 
 

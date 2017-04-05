@@ -22,14 +22,14 @@
             <thead>
                 <tr>
                     <td><b>Name</b></td>
-                    <td><b>ID</b></td>
+                    <td><b>Id</b></td>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="owner in vm.owners">
-                    <td><a href="#">{{owner.OwnerName}}</a></td>
-                    <td>{{owner.OwnerId}}</td>
-                    <td align="right"><a href="#" class="btn btn-sm btn-danger">Delete</a></td>
+                    <td><a href="http://localhost:50630/api/pets/{{owner.Id}}">{{owner.Name}}</a></td>
+                    <td>{{owner.Id}}</td>
+                    <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.Id)" /></td>
                 </tr>
             </tbody>
         </table>

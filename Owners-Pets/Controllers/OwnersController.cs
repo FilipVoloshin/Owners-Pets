@@ -12,7 +12,7 @@ namespace Owners_Pets.Controllers
 {
     public class OwnershipsController : ApiController
     {
-        public IEnumerable<Owner> Get()
+        public IEnumerable<Information> Get()
         {
             var listOfInformation = DBHelper.ViewFullDetails();
             return listOfInformation;
@@ -21,7 +21,7 @@ namespace Owners_Pets.Controllers
         [HttpPost]
         public IHttpActionResult CreateOwner([FromBody]Owner owner)
         {
-            var name = owner.OwnerName;
+            var name = owner.Name;
             DBHelper.AddOwner(name);
             return Ok(true);
         }

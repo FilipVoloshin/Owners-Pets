@@ -19,23 +19,24 @@ namespace Owners_Pets.Helpers
         /// <summary>
         /// Shows owners name and their pets count
         /// </summary>
-        public static List<Owner> ViewFullDetails()
+        public static List<Information> ViewFullDetails()
         {
-            var listOfFullDetails = new List<Owner>();
+            var listOfFullDetails = new List<Information>();
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = @"Select ID, Name from Owners";
+                    fmd.CommandText = @"Select owners.ID as ID, owners.name as Name, Count(*) as PetsCount from owners left join pets on pets.ownerid = owners.id group by owners.id";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        listOfFullDetails.Add(new Owner()
+                        listOfFullDetails.Add(new Information()
                         {
-                            OwnerId = Convert.ToInt32(reader["ID"]),
-                            OwnerName = Convert.ToString(reader["Name"]),
+                            ID = Convert.ToInt32(reader["ID"]),
+                            Name = Convert.ToString(reader["Name"]),
+                            PetsCount = Convert.ToInt32(reader["PetsCount"])
                         });
                     }
                 }
