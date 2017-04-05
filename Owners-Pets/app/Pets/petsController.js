@@ -20,7 +20,7 @@
         $http.get("api/pets/1")
             .then(function (response) {
                 //success
-                angular.copy(response.data, vm.owners);
+                angular.copy(response.data, vm.pets);
             }, function (error) {
                 //failure
                 vm.errorMessage = "Failed to load data: " + error;

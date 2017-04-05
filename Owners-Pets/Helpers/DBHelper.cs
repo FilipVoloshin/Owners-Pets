@@ -113,20 +113,24 @@ namespace Owners_Pets.Helpers
         /// <summary>
         /// Shows all pets name of a certain owner 
         /// </summary>
-        public static List<string> ViewOwnerDetails(int ownerId)
+        public static List<Pet> ViewPetsDetails(int ownerId)
         {
-            var resultList = new List<string>();
+            var resultList = new List<Pet>();
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"select name from pets where ownerid = {ownerId}";
+                    fmd.CommandText = $"select id as ID, name as Name, ownerId as OwnerId from pets where ownerid = {ownerId}";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        resultList.Add(Convert.ToString(reader["name"]));
+                        resultList.Add(new Pet {
+                            PetId = Convert.ToInt32(reader["ID"]),
+                            PetName = Convert.ToString(reader["Name"]),
+                            OwnerId = Convert.ToInt32(reader["OwnerId"])
+                        });
                     }
                 }
                 return resultList;
