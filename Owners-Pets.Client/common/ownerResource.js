@@ -5,7 +5,7 @@
         .factory("ownerResource",
         ["$resource",
             "appSettings",
-            ownerResource])
+            ownerResource]);
     function ownerResource($resource, appSettings) {
         return $resource(appSettings.serverPath + "/api/ownerships/:id");
     };

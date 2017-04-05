@@ -11,14 +11,22 @@
         var vm = this;
 
         ownerResource.query(function (data) {
-            vm.owners = data;  
+            vm.owners = data;
         });
 
+        vm.errorMessage = "";
         //To add owner
-        vm.newOwner = {};
         vm.addOwner = function () {
-            vm.owners.push({ Name: vm.newOwner.name, PetsCount: 0 });
-            vm.newOwner = {};
+
+            $http.post("/api/ownerships", vm.newOwner)
+                .then(function (response) {
+                    //success
+                    vm.owners.push(response.data);
+                    vm.newOwner = {};
+                }, function () {
+                    // failure
+                    vm.errorMessage = "Failed to save new owner.";
+                });
         };
     }
 }());
