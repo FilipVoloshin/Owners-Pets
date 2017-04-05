@@ -1,4 +1,6 @@
 ﻿<div ng-controller="petsController as vm">
+    <br />
+    <br />
     <div class="text-left">
         <a href="/index.html">Back to owners</a>
         <br />
@@ -8,8 +10,12 @@
     <div class="text-center">
         <form novalidate name="addPetForm" class="form-inline" ng-submit="vm.addPet()">
             <div>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter pet's name"
-                       ng-model="vm.Pet.name" required ng-minlength="2" />
+                <input type="text" class="form-control" id="petName" name="petName" placeholder="Enter pet's name"
+                       ng-model="vm.newPet.petName" required ng-minlength="2" />
+            </div>
+            <div>
+                <input type="text" class="form-control" id="ownerid" name="ownerid" placeholder="Enter pet's owner ID"
+                       ng-model="vm.newOwnerId.ownerid" required ng-minlength="1" />
             </div>
             <div>
                 <button type="submit" class="btn btn-success"

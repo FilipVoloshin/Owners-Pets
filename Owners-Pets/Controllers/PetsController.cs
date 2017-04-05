@@ -9,18 +9,20 @@ namespace Owners_Pets.Controllers
     {
         public List<Pet> GetPetsById(int id)
         {
-            
+
             var result = DBHelper.ViewPetsDetails(id);
             return result;
         }
 
         [HttpPost]
-        public IHttpActionResult CreatePet(string name,int ownerId)
+        public IHttpActionResult CreatePet([FromBody]Pet pet)
         {
-            if (name == null || ownerId == 0)
+            if (pet == null)
             {
                 return BadRequest("Invalid passed data");
             }
+            var name = pet.PetName;
+            var ownerId = pet.OwnerId;
             DBHelper.AddPet(name, ownerId);
             return Ok();
         }

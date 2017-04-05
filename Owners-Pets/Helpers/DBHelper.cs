@@ -121,15 +121,15 @@ namespace Owners_Pets.Helpers
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"select id as ID, name as Name, ownerId as OwnerId from pets where ownerid = {ownerId}";
+                    fmd.CommandText = $"select id as Id, name as PetName, ownerID as OwnerId from pets where ownerid = {ownerId}";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
                         resultList.Add(new Pet {
-                            PetId = Convert.ToInt32(reader["ID"]),
-                            PetName = Convert.ToString(reader["Name"]),
-                            OwnerId = Convert.ToInt32(reader["OwnerId"])
+                            PetId = Convert.ToInt32(reader["Id"]),
+                            PetName = Convert.ToString(reader["PetName"]),
+                            OwnerId = Convert.ToInt32(reader["OwnerId"]),
                         });
                     }
                 }

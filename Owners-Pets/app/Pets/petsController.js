@@ -16,6 +16,12 @@
         //Array of the db information
         vm.pets = [];
 
+        vm.newPet = {};
+        vm.newOwnerId = {};
+        //Error message
+        vm.errorMessage = "";
+        vm.isBusy = true;
+
         //Get information from api get request
         $http.get("api/pets/1")
             .then(function (response) {
@@ -28,6 +34,24 @@
             .finally(function () {
                 vm.isBusy = false;
             });
+
+        vm.addPet = function () {
+            vm.isBusy = true;
+            vm.errorMessage = "";
+            $http.post("/api/pets/", [vm.newPet , vm.newOwnerId])
+                .then(function (response) {
+                    //Success
+                    vm.pets.push({ PetName: vm.newPet.petName });
+                    vm.newPet = {};
+                }, function () {
+                    //Failure
+                    vm.errorMessage = "Failed to add owner:";
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
+
+        };
     };
 
 
