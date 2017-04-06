@@ -27,12 +27,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="owner in vm.owners">
+                <tr dir-paginate="owner in vm.owners|itemsPerPage:3">
                     <td><a href="/api/pets/{{owner.ID}}">{{owner.Name}}</a></td>
                     <td>{{owner.PetsCount}}</td>
                     <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
                 </tr>
             </tbody>
         </table>
+        <dir-pagination-controls template-url="app/dirPagination.tpl.html"
+                                 max-size="5"
+                                 direction-links="true"
+                                 boundary-links="true">
+            
+        </dir-pagination-controls>
     </div>
 </div>

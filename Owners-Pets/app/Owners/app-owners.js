@@ -5,6 +5,6 @@
     "use strict";
 
     //Creating the module
-    angular.module("app-owners", []);
+    angular.module("appOwner", ['angularUtils.directives.dirPagination']);
 
 })(); 

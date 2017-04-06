@@ -4,7 +4,7 @@
     "use strict";
 
     //create a controller: (getting the existing module)
-    angular.module("app-owners")
+    angular.module("appOwner")
         .controller("ownersController", ownersController);
 
     //$http - call to server
