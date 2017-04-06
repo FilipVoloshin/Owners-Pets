@@ -8,13 +8,12 @@
         .controller("petsController", petsController);
 
     //$http - call to server
-    function petsController($http,$routeParams) {
+    function petsController($http) {
 
         //ViewModel
         var vm = this;
 
-        vm.name = $routeParams.Name;
-        vm.id = $routeParams.ID;
+        vm.name = "Filip"
         //Array of the db information
         vm.pets = [];
 
@@ -25,7 +24,7 @@
         vm.isBusy = true;
 
         //Get information from api get request
-        $http.get("api/pets/" + vm.id)
+        $http.get("api/pets/1")
             .then(function (response) {
                 //success
                 angular.copy(response.data, vm.pets);
@@ -40,15 +39,14 @@
         vm.addPet = function () {
             vm.isBusy = true;
             vm.errorMessage = "";
-            var Indata = { 'OwnerId': vm.id, 'PetName': vm.newPet };
-            $http.post("/api/pets/", Indata)
-                .then(function () {
+            $http.post("/api/pets/", [vm.newPet , vm.newOwnerId])
+                .then(function (response) {
                     //Success
                     vm.pets.push({ PetName: vm.newPet.petName });
                     vm.newPet = {};
                 }, function () {
                     //Failure
-                    vm.errorMessage = "Failed to add a pet.";
+                    vm.errorMessage = "Failed to add owner:";
                 })
                 .finally(function () {
                     vm.isBusy = false;

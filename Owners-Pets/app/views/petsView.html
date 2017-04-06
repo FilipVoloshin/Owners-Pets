@@ -6,7 +6,7 @@
         <a class="btn btn-sm btn-default"  href="#/"><i class="fa fa-angle-back"></i>Back to owners</a>
         <br />
         <div class="text-center">
-            <h1>{{vm.name}}'s pets</h1>
+            <h1>{{vm.name}}'s Pets</h1>
         </div>
     </div>
     <div class="text-center">
@@ -14,6 +14,10 @@
             <div>
                 <input type="text" class="form-control" id="petName" name="petName" placeholder="Enter pet's name"
                        ng-model="vm.newPet.petName" required ng-minlength="2" />
+            </div>
+            <div>
+                <input type="text" class="form-control" id="ownerid" name="ownerid" placeholder="Enter pet's owner ID"
+                       ng-model="vm.newOwnerId.ownerid" required ng-minlength="1" />
             </div>
             <div>
                 <button type="submit" class="btn btn-success"
