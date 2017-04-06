@@ -63,8 +63,6 @@
                     vm.owners = owners;
                 })
         };
-                })
-        };
         
     };
 
