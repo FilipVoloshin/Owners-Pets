@@ -1,0 +1,54 @@
+﻿<div>
+    <!--ng-controller="petsController as vm"-->
+    <br />
+    <br />
+    <div class="text-left">
+        <a href="/index.html">Back to owners</a>
+        <br />
+        <br />
+        <br />
+    </div>
+    <div class="text-center">
+        <form novalidate name="addPetForm" class="form-inline" ng-submit="vm.addPet()">
+            <div>
+                <input type="text" class="form-control" id="petName" name="petName" placeholder="Enter pet's name"
+                       ng-model="vm.newPet.petName" required ng-minlength="2" />
+            </div>
+            <div>
+                <input type="text" class="form-control" id="ownerid" name="ownerid" placeholder="Enter pet's owner ID"
+                       ng-model="vm.newOwnerId.ownerid" required ng-minlength="1" />
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success"
+                        ng-disabled="addPetForm.$invalid">
+                    Add
+                </button>
+            </div>
+        </form>
+        <br />
+    </div>
+    <div>
+        <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
+        <div ng-show="vm.isBusy" class="text-center">
+            <i class="fa fa-spinner fa-spin"></i>Loading...
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td><b>Pet</b></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="pet in vm.pets|itemsPerPage:3">
+                    <td>{{pet.PetName}}</td>
+                    <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="text-center">
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
+    </div>
+</div>
