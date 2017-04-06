@@ -40,7 +40,7 @@
         vm.addPet = function () {
             vm.isBusy = true;
             vm.errorMessage = "";
-            var Indata = { 'OwnerId': vm.id, 'PetName': vm.newPet };
+            var Indata = { 'OwnerId': vm.id, 'PetName': vm.newPet.petName };
             $http.post("/api/pets/", Indata)
                 .then(function (response) {
                     //Success
