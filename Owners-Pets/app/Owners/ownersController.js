@@ -57,7 +57,7 @@
         vm.deleteOwner = function (id) {
             $http.delete("/api/ownerships/" + id)
                 .then(function (response) {
-                    vm.owners.pop(response.data);
+                    vm.owners.splice(id,1);
                 })
         };
         
