@@ -8,13 +8,28 @@
         .controller("petsController", petsController);
 
     //$http - call to server
-    function petsController($http, $routeParams) {
+    function petsController($http, $routeParams,$scope) {
 
         //ViewModel
         var vm = this;
 
         vm.name = $routeParams.Name;
         vm.ownerId = $routeParams.ID;
+        //sorting
+        $scope.sortColumn = 'PetName';
+        $scope.reverseSort = false;
+
+        $scope.sortData = function (column) {
+            $scope.reverseSort = ($scope.sortColumn == column) ? !$scope.reverseSort : false;
+            $scope.sortColumn = column;
+        };
+
+        $scope.getSortClass = function (column) {
+            if ($scope.sortColumn == column) {
+                return $scope.reverseSort ? 'glyphicon glyphicon-chevron-down' : 'glyphicon glyphicon-chevron-up';
+            }
+            return '';
+        };
 
         //Array of the db information
         vm.pets = [];

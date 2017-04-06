@@ -8,7 +8,7 @@
         .controller("ownersController", ownersController);
 
     //$http - call to server
-    function ownersController($http) {
+    function ownersController($http,$scope) {
 
         //ViewModel
         var vm = this;
@@ -20,6 +20,22 @@
         //Error message
         vm.errorMessage = "";
         vm.isBusy = true;
+
+        //sorting
+        $scope.sortColumn = 'Name';
+        $scope.reverseSort = false;
+
+        $scope.sortData = function (column) {
+            $scope.reverseSort = ($scope.sortColumn == column) ? !$scope.reverseSort : false;
+            $scope.sortColumn = column;
+        };
+
+        $scope.getSortClass = function (column) {
+            if ($scope.sortColumn == column) {
+                return $scope.reverseSort ? 'glyphicon glyphicon-chevron-down' : 'glyphicon glyphicon-chevron-up';
+            }
+            return '';
+        };
 
         //Get information from api get request
         $http.get("api/ownerships")
@@ -69,8 +85,6 @@
                 });
         };
 
-
-        
     };
 
 

@@ -16,6 +16,7 @@
                 </button>
             </div>
         </form>
+        <br />
     </div>
     <div>
         <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
@@ -25,13 +26,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <td><b>Name</b></td>
-                    <td><b>Pets count</b></td>
-                    <td></td>
+                    <th ng-click="sortData('Name')">Name&nbsp;<span ng-class="getSortClass('Name')"></span></th>
+                    <th ng-click="sortData('PetsCount')">Pets Count&nbsp;<span ng-class="getSortClass('PetsCount')"></span></th>
+
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="owner in vm.owners|itemsPerPage:3">
+                <tr dir-paginate="owner in vm.owners|orderBy:sortColumn:reverseSort|itemsPerPage:3">
                     <td><a ng-href="#!/pet/{{owner.ID}}/{{owner.Name}}">{{owner.Name}}</a></td>
                     <td>{{owner.PetsCount}}</td>
                     <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
@@ -39,9 +41,7 @@
             </tbody>
         </table>
         <div class="text-center">
-            <dir-pagination-controls max-size="7">
-
-
+            <dir-pagination-controls max-size="6" direction-links="true" boundary-links="true">
             </dir-pagination-controls>
         </div>
 

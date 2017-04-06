@@ -3,7 +3,7 @@
     <br />
     <br />
     <div class="text-left">
-        <a class="btn btn-sm btn-default"  href="#/"><i class="fa fa-angle-back"></i>Back to owners</a>
+        <a class="btn btn-sm btn-default" href="#/"><i class="fa fa-angle-back"></i>Back to owners</a>
         <br />
         <div class="text-center">
             <h1>{{vm.name}}'s Pets</h1>
@@ -32,12 +32,12 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <td><b>Pet</b></td>
+                    <th ng-click="sortData('PetName')">Pet name &nbsp;<span ng-class="getSortClass('PetName')"></span></th>
                     <td></td>
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="pet in vm.pets|itemsPerPage:3">
+                <tr dir-paginate="pet in vm.pets|orderBy:sortColumn:reverseSort|itemsPerPage:3">
                     <td>{{pet.PetName}}</td>
                     <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deletePet(pet.PetId)" /></td>
                 </tr>
@@ -45,7 +45,7 @@
             </tbody>
         </table>
         <div class="text-center">
-            <dir-pagination-controls></dir-pagination-controls>
+            <dir-pagination-controls max-size="6" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
         </div>
     </div>
-</div>
