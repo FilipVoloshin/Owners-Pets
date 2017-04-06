@@ -22,8 +22,8 @@ namespace Owners_Pets.Controllers
         public IHttpActionResult CreateOwner([FromBody]Owner owner)
         {
             var name = owner.Name;
-            DBHelper.AddOwner(name);
-            return Ok(true);
+            var id = DBHelper.AddOwner(name);
+            return Json( new { ID = id, Name = name, PetsCount = 0 });
         }
 
         [HttpDelete]

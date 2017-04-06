@@ -5,6 +5,6 @@
     "use strict";
 
     //Creating the module
-    angular.module("app-pets", []);
+    angular.module("app-pets", ['angularUtils.directives.dirPagination']);
 
 })(); 

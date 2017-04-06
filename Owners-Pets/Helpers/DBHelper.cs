@@ -72,17 +72,17 @@ namespace Owners_Pets.Helpers
         /// Allows to add owner to the Owners table
         /// </summary>
         /// <param name="name"></param>
-        public static void AddOwner(string name)
+        public static long AddOwner(string name)
         {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"insert into Owners ('Name') values ('{name}')";
-                    fmd.ExecuteNonQuery();
-                }
-                    
+                    fmd.CommandText = $"insert into Owners ('Name') values ('{name}'); SELECT last_insert_rowid();";
+                    long id = (long)fmd.ExecuteScalar();
+                    return id;
+                }                
             }    
         }
 
