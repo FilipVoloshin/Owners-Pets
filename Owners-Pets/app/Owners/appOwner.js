@@ -14,7 +14,7 @@
                 templateUrl: "app/views/ownersView.html"
             });
 
-            $routeProvider.when("/pet/:ID", {
+            $routeProvider.when("/pet/:Name/:ID", {
                 controller: "petsController",
                 controllerAs: "vm",
                 templateUrl: "app/views/petsView.html"

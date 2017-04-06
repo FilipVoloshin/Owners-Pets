@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <tr dir-paginate="owner in vm.owners|itemsPerPage:3">
-                    <td><a ng-href="#!/pet/{{owner.ID}}">{{owner.Name}}</a></td>
+                    <td><a ng-href="#!/pet/{{owner.Name}}/{{owner.ID}}">{{owner.Name}}</a></td>
                     <td>{{owner.PetsCount}}</td>
                     <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
                 </tr>
@@ -40,8 +40,6 @@
         </table>
         <div class="text-center">
             <dir-pagination-controls max-size="7">
-
-
             </dir-pagination-controls>
         </div>
 
