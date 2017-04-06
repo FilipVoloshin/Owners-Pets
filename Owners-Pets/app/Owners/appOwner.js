@@ -13,7 +13,15 @@
                 controllerAs: "vm",
                 templateUrl: "app/views/ownersView.html"
             });
+
+            $routeProvider.when("/pet/:ID", {
+                controller: "petsController",
+                controllerAs: "vm",
+                templateUrl: "app/views/petsView.html"
+            });
+
             $routeProvider.otherwise({ redirectTo: "/" });
+
         });
 
 })(); 

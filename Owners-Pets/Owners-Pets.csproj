@@ -115,10 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\dirPagination.js" />
-    <Content Include="app\Owners\app-owners.js" />
+    <Content Include="app\Owners\appOwner.js" />
     <Content Include="app\Owners\ownersController.js" />
     <Content Include="app\views\ownersView.html" />
-    <Content Include="app\Pets\app-pets.js" />
     <Content Include="app\Pets\petsController.js" />
     <Content Include="app\views\petsView.html" />
     <Content Include="Content\bootstrap-grid.css" />

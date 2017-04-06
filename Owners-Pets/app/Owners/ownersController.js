@@ -13,7 +13,7 @@
         //ViewModel
         var vm = this;
 
-        //Array of the db information
+        //Array of the information
         vm.owners = [];
 
         vm.newOwner = {};
@@ -51,7 +51,6 @@
                     vm.isBusy = false;
                 });
         };
-
 
         //Delete owner 
         vm.deleteOwner = function (id) {

@@ -4,7 +4,7 @@
     "use strict";
 
     //create a controller: (getting the existing module)
-    angular.module("app-pets")
+    angular.module("appOwner")
         .controller("petsController", petsController);
 
     //$http - call to server
@@ -13,6 +13,7 @@
         //ViewModel
         var vm = this;
 
+        vm.name = "Filip"
         //Array of the db information
         vm.pets = [];
 
