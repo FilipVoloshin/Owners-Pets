@@ -60,7 +60,13 @@
                         return o.ID !== id;
                     });
                     vm.owners = owners;
+                }, function () {
+                    //Failure
+                    vm.errorMessage = "Failed to delete owner";
                 })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
         };
 
 
