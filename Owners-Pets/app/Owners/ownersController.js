@@ -58,11 +58,13 @@
             $http.delete("/api/ownerships/" + id)
                 .then(function (response) {
                     var owners = vm.owners.filter(function (o) {
-                        return o.ID != id;
+                        return o.ID !== id;
                     });
                     vm.owners = owners;
                 })
         };
+
+
         
     };
 

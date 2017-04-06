@@ -7,12 +7,12 @@
     //Creating the module
     angular.module("appOwner", ['angularUtils.directives.dirPagination', "ngRoute"])
         .config(function ($routeProvider) {
-            $routeProvider.when("/", {
-                controller: "petsController",
-                controllerAs: "vm",
-                templateUrl: "/app/Pets/petsView.html"
-            });
 
+            $routeProvider.when("/", {
+                controller: "ownersController",
+                controllerAs: "vm",
+                templateUrl: "app/views/ownersView.html"
+            });
             $routeProvider.otherwise({ redirectTo: "/" });
         });
 

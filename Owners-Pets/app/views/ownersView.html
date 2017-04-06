@@ -1,4 +1,4 @@
-﻿<div ng-controller="ownersController as vm">
+﻿<div> <!--ng-controller="ownersController as vm"-->
     <div class="text-center">
         <form novalidate name="addOwnerForm" class="form-inline" ng-submit="vm.addOwner()">
             <div>
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <tr dir-paginate="owner in vm.owners|itemsPerPage:3">
-                    <td><a href="/Pets.html">{{owner.Name}}</a></td>
+                    <td><a href="#">{{owner.Name}}</a></td>
                     <td>{{owner.PetsCount}}</td>
                     <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
                 </tr>
