@@ -16,7 +16,7 @@
         vm.name = $routeParams.Name;
         vm.ownerId = $routeParams.ID;
         //sorting
-        $scope.sortColumn = 'PetName';
+        $scope.sortColumn = '';
         $scope.reverseSort = false;
 
         $scope.sortData = function (column) {

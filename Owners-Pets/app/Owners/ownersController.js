@@ -22,7 +22,7 @@
         vm.isBusy = true;
 
         //sorting
-        $scope.sortColumn = 'Name';
+        $scope.sortColumn = '';
         $scope.reverseSort = false;
 
         $scope.sortData = function (column) {
