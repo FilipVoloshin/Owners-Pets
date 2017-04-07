@@ -1,5 +1,7 @@
-﻿<h2 align="center">All owners</h2>
-<div class="row" id="owner_form">
+﻿<div class="container" id="owner_header" >
+    <h2  align="center">All owners</h2>
+</div>
+<div class="row" id="form">
     <div class="center-block">
         <form novalidate name="addOwnerForm" class="form-inline" ng-submit="vm.addOwner()">
             <div class="form-group">
@@ -13,16 +15,16 @@
         </form>
     </div>
 </div>
-<div><hr /></div>
+<div class="container"><hr /></div>
 
 
-<div class="center-block" id="owner_table">
+<div class="center-block" id="div_table">
     <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
     <div ng-show="vm.isBusy" class="text-center">
         <i class="fa fa-spinner fa-spin"></i>Loading...
     </div>
     <p class="text-muted"><b>Owners count:</b> xxx</p>
-    <table class="table table-striped" id="owner_table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th ng-click="sortData('Name')">Name&nbsp;<span ng-class="getSortClass('Name')"></span></th>

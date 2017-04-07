@@ -1,17 +1,16 @@
 ﻿/*owner*/
-h2{
+#owner_header {
+    margin-top:55px;
+}
+
+#form {
     margin-top:25px;
 }
 
-#owner_form {
-    margin-top:50px;
-}
-
-#owner_table {
+#div_table {
     margin-top: 20px;
 }
-#owner_table {
-    width: 850px;
-    table-layout: fixed;
-    word-wrap: break-word;
+/*pet*/
+#pet_back{
+    margin-top:10px;
 }
