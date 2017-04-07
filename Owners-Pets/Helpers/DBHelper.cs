@@ -11,11 +11,7 @@ namespace Owners_Pets.Helpers
     {
         static string db = HttpContext.Current.Server.MapPath(@"~\OwnersPets.db");
         private static string _connectionString = $"Data Source = {db};Version=3;";
-        /// <summary>
-        /// Starts the connection whith DataBase
-        /// </summary>
         
-
         #region OwnersController
 
         /// <summary>
@@ -176,13 +172,5 @@ namespace Owners_Pets.Helpers
             }
         }
         #endregion
-
-
-
-
-
-
-
     }
-
 }

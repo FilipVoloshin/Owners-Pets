@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Owners_Pets.Models
+﻿namespace Owners_Pets.Models
 {
     public class Pet
     {

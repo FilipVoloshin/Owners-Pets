@@ -3,14 +3,10 @@ using Owners_Pets.Helpers;
 
 namespace Owners_Pets
 {
-
-
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
