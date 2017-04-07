@@ -1,27 +1,29 @@
 ﻿using System.Web.Http;
 using Owners_Pets.Helpers;
 using System.Collections.Generic;
+using Owners_Pets.Models;
 
 namespace Owners_Pets.Controllers
 {
     public class PetsController : ApiController
     {
-        public List<string> GetPetsById(int id)
+        public List<Pet> GetPetsById(int id)
         {
-            
-            var result = DBHelper.ViewOwnerDetails(id);
+            var result = DBHelper.ViewPetsDetails(id);
             return result;
         }
 
         [HttpPost]
-        public IHttpActionResult CreatePet(string name,int ownerId)
+        public IHttpActionResult CreatePet([FromBody]Pet pet)
         {
-            if (name == null || ownerId == 0)
+            if (pet == null)
             {
                 return BadRequest("Invalid passed data");
             }
-            DBHelper.AddPet(name, ownerId);
-            return Ok();
+            var name = pet.PetName;
+            var ownerId = pet.OwnerId;
+            var petId = DBHelper.AddPet(name,ownerId);
+            return Json(new { PetId = petId, PetName = name, OwnerId = ownerId });
         }
 
         [HttpDelete]

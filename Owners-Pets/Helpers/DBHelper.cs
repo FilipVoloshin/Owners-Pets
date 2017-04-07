@@ -3,12 +3,14 @@ using Owners_Pets.Models;
 using System.Collections.Generic;
 using System.Data;
 using System;
+using System.Web;
 
 namespace Owners_Pets.Helpers
 {
-    public static class DBHelper
+    public class DBHelper
     {
-        private static string _connectionString = @"Data Source = C:\git_root\Owners-Pets\Owners-Pets\OwnersPets.db;Version=3;";
+        static string db = HttpContext.Current.Server.MapPath(@"~\OwnersPets.db");
+        private static string _connectionString = $"Data Source = {db};Version=3;";
         /// <summary>
         /// Starts the connection whith DataBase
         /// </summary>
@@ -27,15 +29,16 @@ namespace Owners_Pets.Helpers
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = @"Select owners.name as Name, Count(pets.name) as Pets_Count from owners inner join pets on pets.ownerid = owners.id group by owners.name";
+                    fmd.CommandText = @"select o.id as ID, o.name as Name, IFNULL(p.CNT,0) PetCount from owners o left join (SELECT ownerid, COUNT(*) CNT FROM pets GROUP BY ownerid ) p on o.id = p.ownerid";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
                         listOfFullDetails.Add(new Information()
                         {
+                            ID = Convert.ToInt32(reader["ID"]),
                             Name = Convert.ToString(reader["Name"]),
-                            PetsCount = Convert.ToString(reader["Pets_Count"])
+                            PetsCount = Convert.ToInt32(reader["PetCount"])
                         });
                     }
                 }
@@ -71,18 +74,18 @@ namespace Owners_Pets.Helpers
         /// Allows to add owner to the Owners table
         /// </summary>
         /// <param name="name"></param>
-        public static void AddOwner(string name)
+        public static long AddOwner(string name)
         {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"insert into Owners ('Name') values ('{name}')";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.CommandText = $"insert into Owners ('Name') values ('{name}'); SELECT last_insert_rowid();";
+                    long id = (long)fmd.ExecuteScalar();
+                    return id;
                 }
-                    
-            }    
+            }
         }
 
         /// <summary>
@@ -90,16 +93,17 @@ namespace Owners_Pets.Helpers
         /// </summary>
         /// <param name="id"></param>
         public static void DeleteOwner(int id)
-        { 
+        {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"delete from Owners where ID = {id}";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.ExecuteNonQuery();
+                    fmd.CommandText = $"delete from Pets where ownerid = {id}";
+                    fmd.ExecuteNonQuery();
                 }
-
             }
         }
 
@@ -111,20 +115,25 @@ namespace Owners_Pets.Helpers
         /// <summary>
         /// Shows all pets name of a certain owner 
         /// </summary>
-        public static List<string> ViewOwnerDetails(int ownerId)
+        public static List<Pet> ViewPetsDetails(int ownerId)
         {
-            var resultList = new List<string>();
+            var resultList = new List<Pet>();
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"select name from pets where ownerid = {ownerId}";
+                    fmd.CommandText = $"select id as Id, name as PetName, ownerID as OwnerId from pets where ownerid = {ownerId}";
                     fmd.CommandType = CommandType.Text;
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        resultList.Add(Convert.ToString(reader["name"]));
+                        resultList.Add(new Pet
+                        {
+                            PetId = Convert.ToInt32(reader["Id"]),
+                            PetName = Convert.ToString(reader["PetName"]),
+                            OwnerId = Convert.ToInt32(reader["OwnerId"]),
+                        });
                     }
                 }
                 return resultList;
@@ -136,17 +145,17 @@ namespace Owners_Pets.Helpers
         /// </summary>
         /// <param name="name"></param>
         /// <param name="ownerId"></param>
-        public static void AddPet(string name, int ownerId)
+        public static long AddPet(string name, int ownerId)
         {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}');SELECT last_insert_rowid();";
+                    long petId = (long)fmd.ExecuteScalar();
+                    return petId;
                 }
-
             }
         }
 
@@ -162,17 +171,16 @@ namespace Owners_Pets.Helpers
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
                     fmd.CommandText = $"delete from Pets where ID = {id}";
-                    fmd.CommandType = CommandType.Text;
+                    fmd.ExecuteNonQuery();
                 }
-
             }
         }
         #endregion
-        
 
-        
 
-       
+
+
+
 
 
     }

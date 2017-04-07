@@ -17,6 +17,9 @@ namespace Owners_Pets
             //Convert to JSON format
             config.Formatters.Add(new BrowserJsonFormatter());
 
+            //Enable CORS in the project
+            config.EnableCors();
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
