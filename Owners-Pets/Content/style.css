@@ -1,4 +1,17 @@
-﻿.col-centered {
-    float: none;
-    margin: 0 auto;
+﻿/*owner*/
+h2{
+    margin-top:25px;
+}
+
+#owner_form {
+    margin-top:50px;
+}
+
+#owner_table {
+    margin-top: 20px;
+}
+#owner_table {
+    width: 850px;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
