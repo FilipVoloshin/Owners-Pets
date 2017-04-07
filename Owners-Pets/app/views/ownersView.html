@@ -1,49 +1,42 @@
-﻿<div>
-    <!--ng-controller="ownersController as vm"-->
-    <div class="text-center">
-        <h2 align="center">All owners</h2>
-        <br />
-        <br />
+﻿<h2 align="center">All owners</h2>
+    <div class="col-centered">
         <form novalidate name="addOwnerForm" class="form-inline" ng-submit="vm.addOwner()">
-            <div>
+            <div class="form-group">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter pet owner's name"
                        ng-model="vm.newOwner.name" required ng-minlength="2" />
             </div>
-            <div>
-                <button type="submit" class="btn btn-success"
-                        ng-disabled="addOwnerForm.$invalid">
-                    Add
-                </button>
-            </div>
+            <button type="submit" class="btn btn-success"
+                    ng-disabled="addOwnerForm.$invalid">
+                Add
+            </button>
         </form>
-        <br />
     </div>
-    <div>
-        <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
-        <div ng-show="vm.isBusy" class="text-center">
-            <i class="fa fa-spinner fa-spin"></i>Loading...
-        </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th ng-click="sortData('Name')">Name&nbsp;<span ng-class="getSortClass('Name')"></span></th>
-                    <th ng-click="sortData('PetsCount')">Pets Count&nbsp;<span ng-class="getSortClass('PetsCount')"></span></th>
 
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr dir-paginate="owner in vm.owners|orderBy:sortColumn:reverseSort|itemsPerPage:3">
-                    <td><a ng-href="#!/pet/{{owner.ID}}/{{owner.Name}}">{{owner.Name}}</a></td>
-                    <td>{{owner.PetsCount}}</td>
-                    <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="text-center">
-            <dir-pagination-controls max-size="6" direction-links="true" boundary-links="true">
-            </dir-pagination-controls>
-        </div>
 
+<div class="text-capitalize">
+    <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
+    <div ng-show="vm.isBusy" class="text-center">
+        <i class="fa fa-spinner fa-spin"></i>Loading...
+    </div>
+    <p class="text-muted"><b>Owners count:</b> xxx</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th ng-click="sortData('Name')">Name&nbsp;<span ng-class="getSortClass('Name')"></span></th>
+                <th ng-click="sortData('PetsCount')">Pets Count&nbsp;<span ng-class="getSortClass('PetsCount')"></span></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="owner in vm.owners|orderBy:sortColumn:reverseSort|itemsPerPage:3">
+                <td><a ng-href="#!/pet/{{owner.ID}}/{{owner.Name}}">{{owner.Name}}</a></td>
+                <td>{{owner.PetsCount}}</td>
+                <td align="right"><input type="button" value="Delete" class="btn btn-danger " data-ng-click="vm.deleteOwner(owner.ID)" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <dir-pagination-controls max-size="6" direction-links="true" boundary-links="true">
+        </dir-pagination-controls>
     </div>
 </div>

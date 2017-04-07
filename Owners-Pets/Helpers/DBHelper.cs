@@ -142,15 +142,16 @@ namespace Owners_Pets.Helpers
         /// </summary>
         /// <param name="name"></param>
         /// <param name="ownerId"></param>
-        public static void AddPet(string name, int ownerId)
+        public static long AddPet(string name, int ownerId)
         {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
-                    fmd.ExecuteNonQuery();
+                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}');SELECT last_insert_rowid();";
+                    long petId = (long)fmd.ExecuteScalar();
+                    return petId;
                 }
             }
         }

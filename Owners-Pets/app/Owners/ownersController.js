@@ -69,11 +69,11 @@
         };
 
         //Delete owner 
-        vm.deleteOwner = function (id) {
-            $http.delete("/api/ownerships/" + id)
+        vm.deleteOwner = function (petId) {
+            $http.delete("/api/ownerships/" + petId)
                 .then(function (response) {
                     var owners = vm.owners.filter(function (o) {
-                        return o.ID !== id;
+                        return o.ID !== petId;
                     });
                     vm.owners = owners;
                 }, function () {

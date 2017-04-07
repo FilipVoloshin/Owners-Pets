@@ -7,7 +7,7 @@ namespace Owners_Pets.Models
 {
     public class Pet
     {
-        public int PetId { get; set; }
+        public long PetId { get; set; }
         public string PetName { get; set; }
         public int OwnerId { get; set; }
     }

@@ -3,19 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <title>Pets and Owners</title>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link href="Content/style.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="row" ng-app="appOwner">
-        <div class="container">
-            <div ng-view>
-            </div>
-        </div>
+    <div class="container" ng-view ng-app="appOwner">
     </div>
-
 
     <!-- Library Scripts -->
     <script src="scripts/angular.js"></script>
@@ -26,9 +22,6 @@
     <script src="app/Owners/ownersController.js"></script>
     <script src="app/dirPagination.js"></script>
     <script src="app/Pets/petsController.js"></script>
-
-    <!--Font awesome:-->
-    <script src="https://use.fontawesome.com/c851ba0300.js"></script>
 
 </body>
 </html>

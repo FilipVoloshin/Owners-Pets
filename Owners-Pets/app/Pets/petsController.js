@@ -55,11 +55,13 @@
         vm.addPet = function () {
             vm.isBusy = true;
             vm.errorMessage = "";
+
             var Indata = { 'OwnerId': vm.ownerId, 'PetName': vm.newPet.petName };
+
             $http.post("/api/pets/", Indata)
                 .then(function (response) {
                     //Success
-                    vm.pets.push({ PetName: vm.newPet.petName });
+                    vm.pets.push(response.data);
                     vm.newPet = {};
                 }, function () {
                     //Failure
