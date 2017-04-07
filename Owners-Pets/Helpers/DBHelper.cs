@@ -3,12 +3,14 @@ using Owners_Pets.Models;
 using System.Collections.Generic;
 using System.Data;
 using System;
+using System.Web;
 
 namespace Owners_Pets.Helpers
 {
-    public static class DBHelper
+    public class DBHelper
     {
-        private static string _connectionString = @"Data Source = C:\git_root\Owners-Pets\Owners-Pets\OwnersPets.db;Version=3;";
+        static string db = HttpContext.Current.Server.MapPath(@"~\OwnersPets.db");
+        private static string _connectionString = $"Data Source = {db};Version=3;";
         /// <summary>
         /// Starts the connection whith DataBase
         /// </summary>
@@ -82,8 +84,8 @@ namespace Owners_Pets.Helpers
                     fmd.CommandText = $"insert into Owners ('Name') values ('{name}'); SELECT last_insert_rowid();";
                     long id = (long)fmd.ExecuteScalar();
                     return id;
-                }                
-            }    
+                }
+            }
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace Owners_Pets.Helpers
         /// </summary>
         /// <param name="id"></param>
         public static void DeleteOwner(int id)
-        { 
+        {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
@@ -126,7 +128,8 @@ namespace Owners_Pets.Helpers
                     SQLiteDataReader reader = fmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        resultList.Add(new Pet {
+                        resultList.Add(new Pet
+                        {
                             PetId = Convert.ToInt32(reader["Id"]),
                             PetName = Convert.ToString(reader["PetName"]),
                             OwnerId = Convert.ToInt32(reader["OwnerId"]),
@@ -142,15 +145,16 @@ namespace Owners_Pets.Helpers
         /// </summary>
         /// <param name="name"></param>
         /// <param name="ownerId"></param>
-        public static void AddPet(string name, int ownerId)
+        public static long AddPet(string name, int ownerId)
         {
             using (var dbConnection = new SQLiteConnection(_connectionString))
             {
                 dbConnection.Open();
                 using (SQLiteCommand fmd = dbConnection.CreateCommand())
                 {
-                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}')";
-                    fmd.ExecuteNonQuery();
+                    fmd.CommandText = $"insert into Pets ('Name','OwnerId') values ('{name}','{ownerId}');SELECT last_insert_rowid();";
+                    long petId = (long)fmd.ExecuteScalar();
+                    return petId;
                 }
             }
         }
@@ -172,11 +176,11 @@ namespace Owners_Pets.Helpers
             }
         }
         #endregion
-        
 
-        
 
-       
+
+
+
 
 
     }

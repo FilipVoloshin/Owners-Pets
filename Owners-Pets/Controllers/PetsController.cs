@@ -9,7 +9,6 @@ namespace Owners_Pets.Controllers
     {
         public List<Pet> GetPetsById(int id)
         {
-
             var result = DBHelper.ViewPetsDetails(id);
             return result;
         }
@@ -23,8 +22,8 @@ namespace Owners_Pets.Controllers
             }
             var name = pet.PetName;
             var ownerId = pet.OwnerId;
-            DBHelper.AddPet(name, ownerId);
-            return Ok();
+            var petId = DBHelper.AddPet(name,ownerId);
+            return Json(new { PetId = petId, PetName = name, OwnerId = ownerId });
         }
 
         [HttpDelete]
